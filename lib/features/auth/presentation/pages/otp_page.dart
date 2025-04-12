@@ -1,10 +1,8 @@
-import 'dart:developer';
 
 import 'package:fliq/core/theme/app_colors.dart';
 import 'package:fliq/core/utils/responsive.dart';
 import 'package:fliq/core/widgets/common_widgets.dart';
 import 'package:fliq/features/auth/data/services/auth_service.dart';
-import 'package:fliq/features/chat/presentation/pages/chat_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:get/get.dart';
@@ -23,8 +21,8 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    log("pn is ${phone}");
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16),
@@ -99,7 +97,7 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
                         context: context,
                         barrierDismissible: false,
                         builder: (_) => const Center(
-                            child: LinearProgressIndicator(
+                            child: CircularProgressIndicator(
                           color: AppColors.white,
                         )),
                       );
@@ -111,11 +109,11 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
 
                       Get.back();
 
-                      Get.offAndToNamed('/messages');
+                      Get.offAllNamed('/messages');
                     } catch (e) {
                       Get.back();
                       ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text(e.toString())),
+                        SnackBar(content: Text('Failed to verify OTP')),
                       );
                     }
                   },

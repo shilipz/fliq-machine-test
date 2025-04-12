@@ -9,11 +9,11 @@ import 'package:intl_phone_field/intl_phone_field.dart';
 
 class PhoneNumberScreen extends StatelessWidget {
   const PhoneNumberScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     final AuthController authController = Get.find<AuthController>();
     final responsive = Responsive(context);
-    String fullPhoneNumber = '';
 
     return Scaffold(
       backgroundColor: AppColors.white,
@@ -27,7 +27,7 @@ class PhoneNumberScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const CustomArrowBack(),
-              SizedBox(height: responsive.heightPercentage(2.5)), // 20px
+              SizedBox(height: responsive.heightPercentage(2.5)),
               Center(
                 child: Text(
                   'Enter your phone number',
@@ -37,7 +37,7 @@ class PhoneNumberScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(height: responsive.heightPercentage(3.5)), // 30px
+              SizedBox(height: responsive.heightPercentage(3.5)),
               IntlPhoneField(
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
@@ -47,10 +47,10 @@ class PhoneNumberScreen extends StatelessWidget {
                 ),
                 initialCountryCode: 'IN',
                 onChanged: (phone) {
-                  fullPhoneNumber = phone.completeNumber;
-                },
-                onCountryChanged: (country) {
-                  fullPhoneNumber = country.dialCode;
+                  authController.fullPhoneNumber.value =
+                      phone.completeNumber.trim();
+                  debugPrint(
+                      "Full phone number: ${authController.fullPhoneNumber.value}");
                 },
               ),
               Text(
@@ -62,18 +62,26 @@ class PhoneNumberScreen extends StatelessWidget {
               const Spacer(),
               Obx(() {
                 return authController.isLoading.value
-                    ? Center(
-                        child: LinearProgressIndicator(
-                        color: AppColors.white,
-                      ))
+                    ? const Center(
+                        child: CircularProgressIndicator(
+                          color: AppColors.white,
+                        ),
+                      )
                     : GestureDetector(
                         onTap: () {
+                          final fullPhoneNumber =
+                              authController.fullPhoneNumber.value;
+                          debugPrint(
+                              "Tapped with phone number: $fullPhoneNumber");
+
                           if (fullPhoneNumber.isNotEmpty) {
                             authController.phoneNumber.value = fullPhoneNumber;
                             authController.sendOtp();
                           } else {
                             Get.snackbar(
-                                'Error', 'Please enter a valid phone number');
+                              'Error',
+                              'Please enter a valid phone number',
+                            );
                           }
                         },
                         child: Container(

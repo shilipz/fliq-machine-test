@@ -1,7 +1,6 @@
 import 'package:fliq/core/utils/responsive.dart';
 import 'package:fliq/features/auth/presentation/widgets/auth_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:fliq/features/auth/presentation/pages/phone_number_page.dart';
 import 'package:fliq/core/theme/app_colors.dart';
 import 'package:fliq/core/theme/app_text_styles.dart';
 import 'package:get/get.dart';
@@ -17,7 +16,7 @@ class SplashScreen extends StatelessWidget {
         fit: StackFit.expand,
         children: [
           Image.asset('assets/images/splash_bg.png', fit: BoxFit.cover),
-          Container(color: Colors.black.withOpacity(0.2)),
+          Container(color: Colors.black.withValues(alpha: 0.2)),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 40),
             child: Column(
@@ -63,8 +62,7 @@ class SplashScreen extends StatelessWidget {
                   color: AppColors.pink,
                   textColor: AppColors.white,
                 ),
-                SizedBox(
-                    height: responsive.heightPercentage(3)), // use here too
+                SizedBox(height: responsive.heightPercentage(3)),
                 Text.rich(
                   TextSpan(
                     text: 'By signing in, you agree to our ',

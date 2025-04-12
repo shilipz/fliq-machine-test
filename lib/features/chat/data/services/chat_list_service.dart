@@ -23,22 +23,19 @@ class ChatListService {
       }
 
       _dio.options.headers['Authorization'] = 'Bearer $token';
-      print('Token: $token'); // print the token for debugging
+      // print('Token: $token'); // print the token for debugging
       final response = await _dio.get(ApiEndpoints.getChatProfiles);
 
-      // print the raw JSON response
-      print('Raw API Response: ${response.data}');
+      // print('Raw API Response: ${response.data}');
 
       final decoded = Japx.decode(response.data);
 
-      // print the decoded JSON (flattened structure)
-      print('Decoded Response: $decoded');
+      // print('Decoded Response: $decoded');
 
       final List<dynamic> profiles = decoded['data'];
 
-      // Optional: print each profile
       for (var p in profiles) {
-        print('Profile: $p');
+        //  print('Profile: $p');
       }
 
       return profiles.map((e) => ChatProfile.fromJson(e)).toList();

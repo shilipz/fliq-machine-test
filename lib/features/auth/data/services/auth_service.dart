@@ -66,24 +66,4 @@ class AuthService {
       rethrow;
     }
   }
-
-  static Future<dynamic> checkUser(String phone) async {
-    try {
-      final response = await ApiService.get(
-        ApiEndpoints.checkUser,
-        queryParams: {'phone_number': phone},
-      );
-
-      final parsed = Japx.decode(response.data);
-
-      if (response.statusCode != 200 && parsed['errors'] != null) {
-        throw Exception(
-            parsed['errors']?[0]['detail'] ?? 'Failed to check user');
-      }
-
-      return response;
-    } catch (e) {
-      rethrow;
-    }
-  }
 }

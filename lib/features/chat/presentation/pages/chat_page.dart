@@ -1,8 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:developer';
-
-import 'package:fliq/core/theme/app_colors.dart';
-import 'package:fliq/core/theme/app_text_styles.dart';
 import 'package:fliq/features/chat/presentation/widgets/chat_bubbles.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -105,7 +100,7 @@ class _ChatScreenState extends State<ChatScreen> {
                                   borderRadius: BorderRadius.circular(20),
                                 ),
                                 child: Text(
-                                  _getDateLabel(msgDate),
+                                  getDateLabel(msgDate),
                                   style: GoogleFonts.poppins(
                                       fontSize: 12, color: Colors.black54),
                                 ),
@@ -201,7 +196,7 @@ class _ChatScreenState extends State<ChatScreen> {
             Expanded(
               child: Container(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 decoration: BoxDecoration(
                   color: const Color(0xFFF7F7F7),
                   borderRadius: BorderRadius.circular(24),
@@ -209,6 +204,11 @@ class _ChatScreenState extends State<ChatScreen> {
                 child: TextField(
                   controller: messageController,
                   decoration: InputDecoration(
+                    suffixIcon: Icon(
+                      size: 22,
+                      Icons.send_rounded,
+                      color: Colors.deepOrange,
+                    ),
                     isDense: true,
                     hintText: 'Type something...',
                     border: InputBorder.none,
@@ -218,57 +218,10 @@ class _ChatScreenState extends State<ChatScreen> {
                 ),
               ),
             ),
-            const SizedBox(width: 8),
-            GestureDetector(
-              onTap: () {
-                final text = messageController.text.trim();
-                // if (text.isNotEmpty) {
-                //   controller.sendMessage(text);
-                //   messageController.clear();
-                // }
-              },
-              child: const CircleAvatar(
-                radius: 22,
-                backgroundColor: Color(0xFFF99EBB),
-                child: Icon(Icons.send, color: Colors.white),
-              ),
-            ),
           ],
         ),
       ),
     );
   }
 
-  String _getDateLabel(DateTime date) {
-    final now = DateTime.now();
-    final today = DateTime(now.year, now.month, now.day);
-    final msgDate = DateTime(date.year, date.month, date.day);
-
-    if (msgDate == today) {
-      return 'Today';
-    } else if (msgDate == today.subtract(const Duration(days: 1))) {
-      return 'Yesterday';
-    } else {
-      return '${_monthName(date.month)} ${date.day}';
-    }
-  }
-
-  String _monthName(int month) {
-    const months = [
-      '',
-      'January',
-      'February',
-      'March',
-      'April',
-      'May',
-      'June',
-      'July',
-      'August',
-      'September',
-      'October',
-      'November',
-      'December'
-    ];
-    return months[month];
-  }
 }

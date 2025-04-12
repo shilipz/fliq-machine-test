@@ -1,6 +1,5 @@
 import 'dart:developer';
 
-import 'package:fliq/core/theme/app_colors.dart';
 import 'package:fliq/core/utils/responsive.dart';
 import 'package:fliq/features/chat/presentation/controllers/chat_list_controller.dart';
 import 'package:fliq/features/chat/presentation/pages/chat_page.dart';
@@ -91,9 +90,10 @@ class ChatListScreen extends StatelessWidget {
                   border: Border.all(color: Colors.grey),
                   borderRadius: BorderRadius.circular(30),
                 ),
-                child: const Center(
+                child: Center(
                   child: TextField(
-                    decoration: InputDecoration(
+                    onChanged: (value) => controller.filterProfiles(value),
+                    decoration: const InputDecoration(
                       border: InputBorder.none,
                       suffixIcon: Icon(Icons.search),
                       hintText: 'Search',
@@ -123,15 +123,17 @@ class ChatListScreen extends StatelessWidget {
                     ));
                   } else if (controller.chatProfiles.isEmpty) {
                     return const Center(child: Text("No chats found"));
+                  } else if (controller.filteredProfiles.isEmpty) {
+                    return const Center(child: Text("No results found "));
                   }
 
                   return ListView.separated(
-                    itemCount: controller.chatProfiles.length,
+                    itemCount: controller.filteredProfiles.length,
                     separatorBuilder: (_, __) => Divider(
                         color: const Color.fromARGB(255, 248, 246, 246),
                         height: responsive.heightPercentage(4)),
                     itemBuilder: (context, index) {
-                      final profile = controller.chatProfiles[index];
+                      final profile = controller.filteredProfiles[index];
 
                       return ListTile(
                         contentPadding: EdgeInsets.zero,

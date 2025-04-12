@@ -1,20 +1,17 @@
-// lib/core/constants/api_endpoints.dart
 
 class ApiEndpoints {
   static const String baseUrl = 'https://test.myfliqapp.com/api/v1';
 
-  // Auth
+  //================================= Auth
   static const String sendOtp =
       '$baseUrl/auth/registration-otp-codes/actions/phone/send-otp';
   static const String verifyOtp =
       '$baseUrl/auth/registration-otp-codes/actions/phone/verify-otp';
 
-  // Chat
+  // ----------------------------------------Chat
   static const String getChatProfiles =
       '$baseUrl/chat/chat-messages/queries/contact-users';
   static const String getMessages =
       '$baseUrl/chat/chat-messages/queries/chat-between-users';
-  static const String checkUser = '$baseUrl/chat_messages';
 
-  // Add more as needed...
 }

@@ -7,9 +7,9 @@ class CustomArrowBack extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double size = MediaQuery.of(context).size.width * 0.10; // Responsive size
+    double size = MediaQuery.of(context).size.width * 0.10; 
     size =
-        size.clamp(30.0, 40.0); // Prevent it from being too small or too large
+        size.clamp(30.0, 40.0);
 
     return Container(
       height: size,
@@ -43,3 +43,38 @@ String formatTime(String dateTimeString) {
   final dateTime = DateTime.parse(dateTimeString);
   return DateFormat.jm().format(dateTime); 
 }
+
+
+
+  String getDateLabel(DateTime date) {
+    final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
+    final msgDate = DateTime(date.year, date.month, date.day);
+
+    if (msgDate == today) {
+      return 'Today';
+    } else if (msgDate == today.subtract(const Duration(days: 1))) {
+      return 'Yesterday';
+    } else {
+      return '${monthName(date.month)} ${date.day}';
+    }
+  }
+
+  String monthName(int month) {
+    const months = [
+      '',
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December'
+    ];
+    return months[month];
+  }
