@@ -27,7 +27,7 @@ class CustomArrowBack extends StatelessWidget {
         icon: const Icon(Icons.arrow_back, color: Colors.black),
         iconSize: size * 0.5,
         padding: EdgeInsets.zero,
-        onPressed: () => Navigator.of(context).pop(),
+        onPressed: () => Get.back(),
       ),
     );
   }
