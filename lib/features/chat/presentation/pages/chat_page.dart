@@ -201,20 +201,38 @@ class _ChatScreenState extends State<ChatScreen> {
                   color: const Color(0xFFF7F7F7),
                   borderRadius: BorderRadius.circular(24),
                 ),
-                child: TextField(
-                  controller: messageController,
-                  decoration: InputDecoration(
-                    suffixIcon: Icon(
-                      size: 22,
-                      Icons.send_rounded,
-                      color: Colors.deepOrange,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: TextField(
+                        controller: messageController,
+                        decoration: InputDecoration(
+                          isDense: true,
+                          hintText: 'Type something...',
+                          border: InputBorder.none,
+                          hintStyle: GoogleFonts.poppins(
+                            color: Colors.grey,
+                            fontSize: 14,
+                          ),
+                        ),
+                      ),
                     ),
-                    isDense: true,
-                    hintText: 'Type something...',
-                    border: InputBorder.none,
-                    hintStyle:
-                        GoogleFonts.poppins(color: Colors.grey, fontSize: 14),
-                  ),
+                    GestureDetector(
+                      onTap: () {
+                        final message = messageController.text.trim();
+                        if (message.isNotEmpty) {
+                          debugPrint("Sending message: $message");
+
+                          messageController.clear();
+                        }
+                      },
+                      child: const Icon(
+                        Icons.send_rounded,
+                        color: Colors.deepOrange,
+                        size: 22,
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -223,5 +241,4 @@ class _ChatScreenState extends State<ChatScreen> {
       ),
     );
   }
-
 }
