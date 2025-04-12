@@ -10,8 +10,10 @@ class ApiEndpoints {
       '$baseUrl/auth/registration-otp-codes/actions/phone/verify-otp';
 
   // Chat
-  static const String getChatProfiles = '$baseUrl/chat_profiles';
-  static const String getMessages = '$baseUrl/chat_messages';
+  static const String getChatProfiles =
+      '$baseUrl/chat/chat-messages/queries/contact-users';
+  static const String getMessages =
+      '$baseUrl/chat/chat-messages/queries/chat-between-users';
   static const String checkUser = '$baseUrl/chat_messages';
 
   // Add more as needed...

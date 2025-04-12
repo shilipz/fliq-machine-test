@@ -1,15 +1,17 @@
 import 'dart:developer';
 
+import 'package:fliq/core/theme/app_colors.dart';
+import 'package:fliq/core/utils/responsive.dart';
 import 'package:fliq/core/widgets/common_widgets.dart';
 import 'package:fliq/features/auth/data/services/auth_service.dart';
-import 'package:fliq/features/chat/presentation/pages/messages_page.dart';
+import 'package:fliq/features/chat/presentation/pages/chat_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:get/get.dart';
 
 class OTPVerificationScreen extends StatefulWidget {
   final String phone;
-  const OTPVerificationScreen({super.key,required this.phone});
+  const OTPVerificationScreen({super.key, required this.phone});
 
   @override
   State<OTPVerificationScreen> createState() => _OTPVerificationScreenState();
@@ -45,11 +47,11 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
               const SizedBox(height: 12),
               Text.rich(
                 TextSpan(
-                  text: widget.phone,
+                  text: '${widget.phone}.',
                   style: TextStyle(color: Colors.black54),
                   children: [
                     TextSpan(
-                      text: 'Edit',
+                      text: ' Edit',
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
                       ),
@@ -59,12 +61,12 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
               ),
               const SizedBox(height: 10),
               OtpTextField(
+                fieldWidth: Responsive(context).widthPercentage(12),
                 numberOfFields: 6,
                 borderColor: const Color(0xFF512DA8),
                 focusedBorderColor: Colors.pink,
                 showFieldAsBox: true,
-                onCodeChanged: (String code) {
-                },
+                onCodeChanged: (String code) {},
                 onSubmit: (String code) {
                   setState(() {
                     _otpCode = code;
@@ -96,8 +98,10 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
                       showDialog(
                         context: context,
                         barrierDismissible: false,
-                        builder: (_) =>
-                            const Center(child: CircularProgressIndicator()),
+                        builder: (_) => const Center(
+                            child: LinearProgressIndicator(
+                          color: AppColors.white,
+                        )),
                       );
 
                       await AuthService.verifyOtp(
@@ -105,13 +109,11 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
                         _otpCode,
                       );
 
-                      Navigator.of(context).pop(); 
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                            builder: (context) => MessagesScreen()),
-                      );
+                      Get.back();
+
+                      Get.offAndToNamed('/messages');
                     } catch (e) {
-                      Navigator.of(context).pop(); 
+                      Get.back();
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(content: Text(e.toString())),
                       );

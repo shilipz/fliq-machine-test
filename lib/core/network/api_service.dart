@@ -5,24 +5,22 @@ import 'package:japx/japx.dart';
 
 class ApiService {
   static final Dio _dio = Dio();
-
   static Future<Response> postRawJson(
-      String url, Map<String, dynamic> rawBody) async {
-    try {
-      final response = await _dio.post(
-        url,
-        data: jsonEncode(rawBody),
-        options: Options(
-          headers: {
-            'Content-Type': 'application/json',
-            // Add auth token here if needed
-          },
-        ),
-      );
-      return response;
-    } catch (e) {
-      rethrow;
-    }
+      String url, Map<String, dynamic> body) async {
+    final dio = Dio();
+
+    final response = await dio.post(
+      url,
+      data: jsonEncode(body),
+      options: Options(
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+      ),
+    );
+
+    return response;
   }
 
   static Future<Response> post(

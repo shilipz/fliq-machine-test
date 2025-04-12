@@ -1,7 +1,7 @@
 import 'package:fliq/features/auth/presentation/controllers/auth_controller.dart';
 import 'package:fliq/features/auth/presentation/pages/phone_number_page.dart';
 import 'package:fliq/features/auth/presentation/pages/splash_screen.dart';
-import 'package:fliq/features/chat/presentation/pages/messages_page.dart';
+import 'package:fliq/features/chat/presentation/pages/chat_list.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:fliq/features/auth/presentation/pages/otp_page.dart';
@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Fliq',
+
       initialRoute: '/splash',
       getPages: [
         GetPage(
@@ -39,8 +39,7 @@ class MyApp extends StatelessWidget {
         ),
         GetPage(
           name: '/messages',
-          page: () =>
-              MessagesScreen(), 
+          page: () => ChatListScreen(),
         ),
       ],
     );
